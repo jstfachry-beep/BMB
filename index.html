@@ -1,0 +1,4052 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar + Hero + Promo + Floating WhatsApp - Hotel Salak</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- ============================================================
+         NAVBAR DROPDOWN + RESPONSIVE
+    ============================================================= -->
+    <style>
+         :root {
+            --logo-h: 52px;
+            --navbar-h: calc(var(--logo-h) + 40px);
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            height: var(--navbar-h);
+            background: linear-gradient(180deg, #ffffff 0%, #fdfaf4 100%) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(90deg, #17a589, #b7e4d8, #17a589) 1;
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+        }
+        
+        .navbar.navbar-visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .navbar.navbar-scrolled {
+            background: linear-gradient(180deg, #ffffff 0%, #fdfaf4 100%) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(90deg, #17a589, #b7e4d8, #17a589) 1;
+        }
+        
+        .navbar.navbar-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .navbar.navbar-slim {
+            --navbar-h: calc(var(--logo-h) * 0.72 + 24px);
+        }
+        
+        .navbar.navbar-slim .brand-logo {
+            height: calc(var(--logo-h) * 0.72);
+        }
+        
+        .navbar.navbar-slim .nav-link {
+            padding-top: calc(var(--logo-h) * 0.72 * 0.42);
+            padding-bottom: calc(var(--logo-h) * 0.72 * 0.42);
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .brand-logo {
+            display: block;
+            height: var(--logo-h);
+            width: auto;
+            object-fit: contain;
+            margin: auto 0;
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            list-style: none;
+            flex: 1;
+        }
+        
+        .nav-item {
+            position: relative;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: #262626 !important;
+            text-decoration: none;
+            padding: calc(var(--logo-h) * 0.42) calc(var(--logo-h) * 0.35);
+            display: block;
+            font-size: calc(var(--logo-h) * 0.28);
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .nav-link:hover {
+            color: #0f7a5c !important;
+        }
+        
+        .nav-item.active>.nav-link {
+            color: #0f7a5c !important;
+        }
+        
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: var(--navbar-h);
+            left: 0;
+            background-color: #ffffff !important;
+            min-width: 230px;
+            z-index: 1000;
+            border-top: 2px solid #17a589;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .dropdown a {
+            display: block;
+            color: #3a3a3a !important;
+            text-decoration: none;
+            padding: calc(var(--logo-h) * 0.28) calc(var(--logo-h) * 0.38);
+            border-bottom: 1px solid #eee;
+            font-size: calc(var(--logo-h) * 0.26);
+        }
+        
+        .dropdown a:hover {
+            background-color: #faf3e6 !important;
+            color: #0f7a5c !important;
+        }
+        
+        .nav-item.active .dropdown {
+            display: block;
+        }
+        
+        .arrow {
+            font-size: calc(var(--logo-h) * 0.21);
+            margin-left: 5px;
+        }
+        /* ===== TOMBOL "HUBUNGI KAMI" DI KANAN NAVBAR ===== */
+        
+        .navbar-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff !important;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: calc(var(--logo-h) * 0.26);
+            letter-spacing: 0.5px;
+            padding: calc(var(--logo-h) * 0.24) calc(var(--logo-h) * 0.42);
+            border-radius: 999px;
+            box-shadow: 0 4px 14px rgba(15, 122, 92, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+        }
+        
+        .navbar-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 122, 92, 0.45);
+            color: #ffffff !important;
+        }
+        /* Tombol CTA versi di dalam menu mobile (drawer) - default sembunyi di desktop */
+        
+        .navbar-cta-mobile {
+            display: none;
+        }
+        
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 38px;
+            height: 38px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1200;
+        }
+        
+        .navbar-toggle span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background-color: #262626;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .navbar-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+            background-color: #0f7a5c;
+        }
+        
+        .navbar-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .navbar-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+            background-color: #0f7a5c;
+        }
+        
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 1050;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        
+        .nav-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        .hero-title {
+            font-size: clamp(28px, 5.5vw, 80px);
+            line-height: 1.15;
+            word-break: break-word;
+            max-width: 92vw;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-subtitle#hero-subtitle {
+            max-width: 92vw;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (max-width: 991.98px) {
+            html,
+            body {
+                overflow-x: hidden;
+            }
+             :root {
+                --logo-h: 42px;
+                --navbar-h: calc(var(--logo-h) + 30px);
+            }
+            .navbar {
+                padding: 0 18px;
+            }
+            .navbar-toggle {
+                display: flex;
+            }
+            .brand-text {
+                display: none;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: min(320px, 82vw);
+                background: linear-gradient(180deg, #ffffff 0%, #faf3e6 100%);
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
+                overflow-y: auto;
+                padding: calc(var(--navbar-h) + 10px) 0 30px;
+                box-shadow: -8px 0 24px rgba(0, 0, 0, 0.18);
+                transform: translateX(100%);
+                transition: transform 0.4s ease;
+                z-index: 1150;
+            }
+            .nav-menu.open {
+                transform: translateX(0);
+            }
+            .nav-item {
+                width: 100%;
+                border-bottom: 1px solid #eee;
+            }
+            .nav-link {
+                padding: 16px 24px;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .dropdown {
+                position: static;
+                display: none;
+                border-top: none;
+                box-shadow: none;
+                background-color: #fbf6ec !important;
+                min-width: 100%;
+            }
+            .nav-item.active .dropdown {
+                display: block;
+            }
+            .dropdown a {
+                padding: 13px 34px;
+                font-size: 14px;
+            }
+            /* CTA di top bar disembunyikan di mobile, diganti versi di dalam drawer menu */
+            .navbar>.navbar-cta {
+                display: none;
+            }
+            .navbar-cta-mobile {
+                display: block;
+                margin: 18px 24px 0;
+                text-align: center;
+                padding: 12px 0;
+            }
+        }
+        
+        @media (min-width: 576px) and (max-width: 991.98px) {
+             :root {
+                --logo-h: 46px;
+            }
+            .nav-menu {
+                width: min(360px, 70vw);
+            }
+        }
+        
+        @media (max-width: 400px) {
+             :root {
+                --logo-h: 36px;
+            }
+            .navbar {
+                padding: 0 14px;
+            }
+        }
+    </style>
+
+    <!-- ============================================================
+         BASE HERO STYLES
+    ============================================================= -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 560px;
+            overflow: hidden;
+            background: #1c1a17;
+        }
+        
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1.08);
+            transition: opacity 1.6s cubic-bezier(.45, 0, .25, 1), transform 6.5s cubic-bezier(.25, 0, .25, 1);
+            z-index: 0;
+            will-change: opacity, transform;
+        }
+        
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 1;
+        }
+        
+        .hero-slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.55) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+        }
+        /* ===== FIX: warna/font/ukuran tetap di selector ber-ID,
+           tapi opacity/transform/transition DIPINDAH ke selector
+           class biasa supaya tidak menang specificity dari .text-show ===== */
+        
+        .hero-subtitle#hero-subtitle {
+            color: #b7e4d8;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: clamp(13px, 1.6vw, 18px);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+        
+        .hero-subtitle {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity .75s cubic-bezier(.45, 0, .25, 1), transform .75s cubic-bezier(.45, 0, .25, 1);
+        }
+        
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 4px;
+            margin-bottom: 34px;
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity .75s cubic-bezier(.45, 0, .25, 1) .08s, transform .75s cubic-bezier(.45, 0, .25, 1) .08s;
+        }
+        
+        .hero-subtitle.text-show,
+        .hero-title.text-show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hero-btn {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            border: 1px solid #b7e4d8;
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12.5px;
+            letter-spacing: 3px;
+            font-weight: 600;
+            padding: 15px 34px;
+            border-radius: 2px;
+            z-index: 1;
+            transition: color .45s cubic-bezier(.4, 0, .2, 1), border-color .45s ease, transform .35s ease, box-shadow .35s ease, letter-spacing .35s ease;
+        }
+        
+        .hero-btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            transform: scaleX(0);
+            transform-origin: left;
+            z-index: -1;
+            transition: transform .45s cubic-bezier(.4, 0, .2, 1);
+        }
+        
+        .hero-btn:hover {
+            color: #ffffff;
+            border-color: #17a589;
+            letter-spacing: 4px;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 26px rgba(15, 122, 92, 0.45);
+        }
+        
+        .hero-btn:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .hero-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .hero-btn,
+            .hero-btn::before {
+                transition: none !important;
+            }
+        }
+        /* ============================================================
+           SECTION "MENGAPA MEMILIH HOTEL SALAK" (numbered points)
+        ============================================================= */
+        
+        .why-choose {
+            background: #ffffff;
+            padding: 90px 30px;
+        }
+        
+        .why-choose-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .why-image {
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+        }
+        
+        .why-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            min-height: 360px;
+        }
+        
+        .why-image-col {
+            flex: 1 1 420px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 26px;
+        }
+        
+        .why-about h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #0f7a5c;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .why-about p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 1.75;
+            color: #333333;
+        }
+        
+        .why-content {
+            flex: 1 1 480px;
+            min-width: 300px;
+        }
+        
+        .why-eyebrow {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0f7a5c;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        
+        .why-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #262626;
+            font-size: clamp(26px, 3.2vw, 38px);
+            margin-bottom: 20px;
+            padding-bottom: 18px;
+        }
+        
+        .why-list {
+            list-style: none;
+        }
+        
+        .why-list li {
+            display: flex;
+            gap: 22px;
+            padding: 24px 0;
+        }
+        
+        .why-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .facilities-header {
+            margin-top: 40px;
+            padding-top: 34px;
+        }
+        
+        .facilities-header .why-eyebrow {
+            color: #17a589;
+        }
+        
+        .facilities-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 14.5px;
+            line-height: 1.7;
+            color: #5b5b5b;
+            margin-top: -6px;
+            margin-bottom: 6px;
+        }
+        
+        .why-num {
+            flex: 0 0 auto;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .why-list h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            font-size: 17.5px;
+            color: #262626;
+            margin-bottom: 8px;
+        }
+        
+        .why-list p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 1.75;
+            color: #333333;
+        }
+        
+        @media (max-width: 767.98px) {
+            .why-choose {
+                padding: 60px 20px;
+            }
+            .why-choose-inner {
+                gap: 34px;
+            }
+            .why-image img {
+                min-height: 240px;
+            }
+            .why-image-col {
+                gap: 20px;
+            }
+        }
+        
+        .brand-logo {
+            filter: none;
+        }
+        
+        .navbar-brand {
+            position: relative;
+        }
+        
+        .navbar-brand .brand-fallback {
+            display: none;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #262626;
+            font-size: calc(var(--logo-h) * 0.34);
+            white-space: nowrap;
+        }
+        
+        .navbar-brand img.brand-logo.img-error+.brand-fallback {
+            display: inline-block;
+        }
+        
+        .navbar-brand img.brand-logo.img-error {
+            display: none;
+        }
+        /* ===== TULISAN 2 BARIS DI SAMPING LOGO ===== */
+        
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1.15;
+            margin-left: calc(var(--logo-h) * 0.22);
+            white-space: nowrap;
+        }
+        
+        .brand-text-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #262626;
+            font-size: calc(var(--logo-h) * 0.36);
+        }
+        
+        .brand-text-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #0f7a5c;
+            font-size: calc(var(--logo-h) * 0.19);
+            margin-top: 2px;
+        }
+    </style>
+
+    <!-- ============================================================
+         FLOATING WHATSAPP BUTTON
+    ============================================================= -->
+    <style>
+        .floating-whatsapp {
+            position: fixed;
+            right: 26px;
+            bottom: 26px;
+            z-index: 1300;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25d366, #1ebe5b);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            text-decoration: none;
+            box-shadow: 0 8px 22px rgba(37, 211, 102, 0.45);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        
+        .floating-whatsapp::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(37, 211, 102, 0.55);
+            animation: waPulse 2.2s ease-out infinite;
+        }
+        
+        .floating-whatsapp:hover {
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 28px rgba(37, 211, 102, 0.55);
+        }
+        
+        @keyframes waPulse {
+            0% {
+                transform: scale(1);
+                opacity: .8;
+            }
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .floating-whatsapp {
+                right: 16px;
+                bottom: 16px;
+                width: 52px;
+                height: 52px;
+                font-size: 23px;
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .floating-whatsapp,
+            .floating-whatsapp::before {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+
+    <!-- ============================================================
+         LANGUAGE SWITCH (EN / ID) - untuk section Tentang & Mengapa
+    ============================================================= -->
+    <style>
+        .lang-switch {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            background: #f4efe1;
+            border: 1px solid #e8dcc4;
+            border-radius: 999px;
+            padding: 4px;
+            margin-bottom: 22px;
+            gap: 2px;
+        }
+        
+        .lang-switch .lang-indicator {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 46px;
+            height: 32px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            box-shadow: 0 4px 12px rgba(15, 122, 92, 0.35);
+            transition: transform .3s cubic-bezier(.4, 0, .2, 1), width .3s cubic-bezier(.4, 0, .2, 1);
+            z-index: 0;
+        }
+        
+        .lang-switch.lang-en .lang-indicator {
+            width: 54px;
+            transform: translateX(48px);
+        }
+        
+        .lang-switch button {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 46px;
+            height: 32px;
+            padding: 0 12px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 999px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #6b6b6b;
+            transition: color .25s ease, transform .2s ease;
+        }
+        
+        .lang-switch button.active {
+            color: #ffffff;
+            transform: scale(1.02);
+        }
+        
+        .lang-switch button:not(.active):hover {
+            color: #0f7a5c;
+        }
+        
+        .why-content .lang-switch {
+            margin-bottom: 18px;
+        }
+    </style>
+
+    <!-- ============================================================
+         PROMO SECTION (BMB Space) — ditempel di bawah hero
+    ============================================================= -->
+    <style>
+        .promo {
+            position: relative;
+            overflow: hidden;
+            padding: 90px 7% 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bg, #fdfaf4);
+            background-image: linear-gradient(rgba(23, 165, 137, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 165, 137, 0.06) 1px, transparent 1px);
+            background-size: 64px 64px;
+            background-position: center;
+        }
+        
+        .promo .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 0.78fr 1.4fr;
+            align-items: center;
+            gap: 80px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .promo .content {
+            max-width: 440px;
+        }
+        
+        .promo .tag {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 13px;
+            color: #5b5b5b;
+            margin-bottom: 30px;
+        }
+        
+        .promo .tag-rule {
+            width: 26px;
+            height: 1px;
+            background: #17a589;
+            display: block;
+        }
+        
+        .promo .content h1 {
+            font-family: 'Cinzel', Georgia, serif;
+            font-weight: 500;
+            font-size: clamp(34px, 3.4vw, 48px);
+            line-height: 1.22;
+            letter-spacing: 0.5px;
+            color: #262626;
+            margin-bottom: 26px;
+        }
+        
+        .promo .content p {
+            color: #5b5b5b;
+            font-size: 16px;
+            line-height: 1.75;
+            margin-bottom: 32px;
+        }
+        
+        .promo .facts {
+            list-style: none;
+            margin-bottom: 38px;
+            border-top: 1px solid rgba(23, 165, 137, 0.28);
+        }
+        
+        .promo .facts li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14.5px;
+            color: #262626;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(23, 165, 137, 0.28);
+        }
+        
+        .promo .facts li::before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            margin-top: 8px;
+            background: #17a589;
+            flex-shrink: 0;
+        }
+        
+        .promo .cta {
+            display: inline-block;
+            text-decoration: none;
+            color: #262626;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            padding: 15px 34px;
+            border: 1px solid #17a589;
+            position: relative;
+            overflow: hidden;
+            transition: color .35s ease;
+            z-index: 1;
+        }
+        
+        .promo .cta::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #17a589;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .35s ease;
+            z-index: -1;
+        }
+        
+        .promo .cta:hover {
+            color: #ffffff;
+        }
+        
+        .promo .cta:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .promo .viewer {
+            position: relative;
+        }
+        
+        .promo .frame {
+            position: relative;
+            width: 100%;
+            height: 580px;
+            overflow: hidden;
+            background: #faf3e6;
+            border: 1px solid rgba(23, 165, 137, 0.28);
+        }
+        
+        .promo .frame::before,
+        .promo .frame::after {
+            content: "";
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 1px solid #17a589;
+            z-index: 4;
+        }
+        
+        .promo .frame::before {
+            top: 14px;
+            left: 14px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .promo .frame::after {
+            bottom: 14px;
+            right: 14px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        .promo .frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity .6s ease;
+        }
+        
+        .promo .frame img.is-hidden {
+            opacity: 0;
+        }
+        
+        .promo .frame-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 16, 13, 0.55), transparent 45%);
+            pointer-events: none;
+        }
+        
+        .promo .caption {
+            position: absolute;
+            left: 32px;
+            bottom: 30px;
+            z-index: 3;
+        }
+        
+        .promo .caption span {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            color: #17a589;
+            margin-bottom: 8px;
+        }
+        
+        .promo .caption h2 {
+            font-family: 'Cinzel', Georgia, serif;
+            font-weight: 500;
+            font-size: 24px;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+        }
+        
+        .promo .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 22px;
+        }
+        
+        .promo .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .promo .nav-buttons button {
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(23, 165, 137, 0.28);
+            background: transparent;
+            color: #262626;
+            font-size: 17px;
+            cursor: pointer;
+            transition: border-color .25s ease, color .25s ease;
+        }
+        
+        .promo .nav-buttons button:hover {
+            border-color: #17a589;
+            color: #17a589;
+        }
+        
+        .promo .index {
+            font-size: 13px;
+            color: #5b5b5b;
+            letter-spacing: 0.5px;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .promo .progress-track {
+            width: 100%;
+            height: 1px;
+            background: rgba(23, 165, 137, 0.28);
+            margin-top: 18px;
+            position: relative;
+        }
+        
+        .promo .progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 1px;
+            width: 0%;
+            background: #17a589;
+        }
+        
+        .promo .progress-bar.animate {
+            width: 100%;
+            transition: width 8s linear;
+        }
+        
+        @media (max-width:1000px) {
+            .promo .container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .promo .content {
+                max-width: 640px;
+            }
+            .promo .frame {
+                height: 460px;
+            }
+        }
+        
+        @media (max-width:600px) {
+            .promo {
+                padding: 60px 22px 50px;
+            }
+            .promo .content h1 {
+                font-size: 34px;
+            }
+            .promo .frame {
+                height: 360px;
+            }
+            .promo .caption {
+                left: 22px;
+                bottom: 22px;
+            }
+            .promo .caption h2 {
+                font-size: 21px;
+            }
+        }
+    </style>
+
+    <!-- ============================================================
+         SECTION "LAYANAN KAMI" — ditempel di bagian bawah halaman
+    ============================================================= -->
+    <style>
+        .services {
+            background-color: #fdfaf4;
+            background-image: linear-gradient(rgba(23, 165, 137, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 165, 137, 0.06) 1px, transparent 1px);
+            background-size: 64px 64px;
+            background-position: center;
+            padding: 100px 30px 120px;
+        }
+        
+        .services-head {
+            max-width: 700px;
+            margin: 0 auto 64px;
+            text-align: center;
+        }
+        
+        .services-eyebrow {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0f7a5c;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+        
+        .services-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #262626;
+            font-size: clamp(30px, 4vw, 44px);
+            margin-bottom: 20px;
+        }
+        
+        .services-rule {
+            width: 64px;
+            height: 3px;
+            margin: 0 auto;
+            background: linear-gradient(90deg, #17a589, #0f7a5c);
+            border-radius: 2px;
+        }
+        
+        .services-grid {
+            max-width: 1320px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            align-items: stretch;
+        }
+        
+        .service-card {
+            background: #ffffff;
+            border: 1px solid #eee2cc;
+            border-radius: 6px;
+            padding: 28px 20px 26px;
+            transition: border-color .3s ease, box-shadow .3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .service-card:hover {
+            border-color: #b7e4d8;
+            box-shadow: 0 6px 18px rgba(15, 122, 92, 0.08);
+        }
+        
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #f4efe1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #0f7a5c;
+            margin-bottom: 18px;
+        }
+        
+        .service-card h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            font-size: 16.5px;
+            color: #0f7a5c;
+            margin-bottom: 12px;
+        }
+        
+        .service-card p {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 13px;
+            line-height: 1.65;
+            color: #5b5b5b;
+            margin-bottom: 18px;
+            flex-grow: 1;
+        }
+        
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            color: #17a589;
+            text-decoration: none;
+            transition: gap .25s ease, color .25s ease;
+        }
+        
+        .service-link i {
+            font-size: 14px;
+            transition: transform .25s ease;
+        }
+        
+        .service-link:hover {
+            color: #0f7a5c;
+            gap: 12px;
+        }
+        
+        @media (max-width: 1199.98px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 767.98px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .services {
+                padding: 70px 20px 80px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- ============================================================
+         SECTION "HARGA LAYANAN" — ditempel di bagian paling bawah
+    ============================================================= -->
+    <style>
+        .pricing {
+            background: var(--cream, #fdfaf4);
+            padding: 90px 24px 110px;
+        }
+        
+        .pricing .wrap {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        
+        .pricing .eyebrow {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0f7a5c;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        
+        .pricing h2 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-size: clamp(28px, 4vw, 42px);
+            margin: 0 0 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid transparent;
+            border-image: linear-gradient(90deg, #17a589, #b7e4d8, #17a589) 1;
+            color: #262626;
+        }
+        
+        .pricing .sub {
+            color: #5b5b5b;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 1.7;
+            margin: 0 0 44px;
+            max-width: 64ch;
+        }
+        
+        .pricing .table {
+            border: 1px solid #e8dcc4;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #ffffff;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+        }
+        
+        .pricing .row {
+            display: grid;
+            grid-template-columns: auto 1.2fr 1fr auto;
+            align-items: center;
+            gap: 18px;
+            padding: 26px 32px;
+            border-bottom: 1px solid #e8dcc4;
+        }
+        
+        .pricing .row:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing .row:nth-child(odd) {
+            background: #fbf6ec;
+        }
+        
+        .pricing .num {
+            flex: 0 0 auto;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pricing .name {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            font-size: 18px;
+            color: #262626;
+        }
+        
+        .pricing .price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            color: #0f7a5c;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .pricing .price .unit {
+            color: #8a8a8a;
+            font-weight: 400;
+            font-size: 13.5px;
+            margin-left: 4px;
+        }
+        
+        .pricing .btn {
+            justify-self: end;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            padding: 11px 22px;
+            border-radius: 999px;
+            box-shadow: 0 4px 14px rgba(15, 122, 92, 0.3);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        
+        .pricing .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 122, 92, 0.4);
+        }
+        
+        @media (max-width:640px) {
+            .pricing .row {
+                grid-template-columns: auto 1fr;
+                text-align: left;
+                gap: 10px;
+            }
+            .pricing .price {
+                grid-column: 2;
+                text-align: left;
+            }
+            .pricing .btn {
+                grid-column: 2;
+                justify-self: start;
+            }
+        }
+    </style>
+
+    <!-- ============================================================
+         SECTION "INTIP SUASANA KANTOR KAMI" — ditempel di bagian paling bawah
+    ============================================================= -->
+    <style>
+        .office-gallery {
+            background: #ffffff;
+            padding: 100px 30px 110px;
+        }
+        
+        .gallery-head {
+            max-width: 720px;
+            margin: 0 auto 56px;
+            text-align: center;
+        }
+        
+        .gallery-eyebrow {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0f7a5c;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+        
+        .gallery-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #0f7a5c;
+            font-size: clamp(28px, 3.6vw, 42px);
+            margin-bottom: 16px;
+        }
+        
+        .gallery-subtitle {
+            color: #5b5b5b;
+            font-size: 15.5px;
+            line-height: 1.7;
+        }
+        
+        .gallery-wrap {
+            max-width: 1240px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .gallery-viewport {
+            overflow: hidden;
+        }
+        
+        .gallery-track {
+            display: flex;
+            gap: 24px;
+            transition: transform .6s cubic-bezier(.45, 0, .25, 1);
+            will-change: transform;
+        }
+        
+        .gallery-slide {
+            flex: 0 0 calc((100% - 48px) / 3);
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            background: #fdfaf4;
+        }
+        
+        .gallery-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 16, 13, 0.45), transparent 55%);
+            pointer-events: none;
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            left: 20px;
+            bottom: 18px;
+            z-index: 2;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+        }
+        
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid rgba(23, 165, 137, 0.28);
+            background: rgba(255, 255, 255, 0.92);
+            color: #0f7a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 3;
+            transition: background .25s ease, color .25s ease, border-color .25s ease;
+        }
+        
+        .gallery-nav:hover {
+            background: #17a589;
+            border-color: #17a589;
+            color: #ffffff;
+        }
+        
+        .gallery-prev {
+            left: -23px;
+        }
+        
+        .gallery-next {
+            right: -23px;
+        }
+        
+        .gallery-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 26px;
+        }
+        
+        .gallery-index {
+            font-size: 13px;
+            color: #5b5b5b;
+            letter-spacing: 0.5px;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .gallery-progress-track {
+            width: 160px;
+            height: 2px;
+            background: rgba(23, 165, 137, 0.28);
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        
+        .gallery-progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background: #17a589;
+        }
+        
+        .gallery-progress-bar.animate {
+            width: 100%;
+            transition: width 6s linear;
+        }
+        
+        @media (max-width: 991.98px) {
+            .gallery-slide {
+                flex: 0 0 calc((100% - 24px) / 2);
+            }
+            .gallery-prev {
+                left: 6px;
+            }
+            .gallery-next {
+                right: 6px;
+            }
+        }
+        
+        @media (max-width: 575.98px) {
+            .office-gallery {
+                padding: 70px 20px 80px;
+            }
+            .gallery-slide {
+                flex: 0 0 100%;
+            }
+            .gallery-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
+    </style>
+
+    <!-- ============================================================
+         SECTION "APA KATA KLIEN KAMI" — ditempel di bagian paling bawah
+    ============================================================= -->
+    <style>
+        .testimonials {
+            background-color: #fdfaf4;
+            background-image: linear-gradient(rgba(23, 165, 137, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 165, 137, 0.06) 1px, transparent 1px);
+            background-size: 64px 64px;
+            background-position: center;
+            padding: 100px 30px 120px;
+        }
+        
+        .testi-head {
+            max-width: 700px;
+            margin: 0 auto 64px;
+            text-align: center;
+        }
+        
+        .testi-title-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 18px;
+        }
+        
+        .testi-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0f7a5c;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+        
+        .testi-eyebrow::before,
+        .testi-eyebrow::after {
+            content: "";
+            width: 34px;
+            height: 1px;
+            background: #17a589;
+        }
+        
+        .testi-title {
+            font-family: 'Cinzel', serif;
+            font-style: italic;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #262626;
+            font-size: clamp(30px, 4vw, 46px);
+        }
+        
+        .testi-carousel-wrap {
+            position: relative;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+        
+        .testi-grid {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            padding: 6px 6px 18px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .testi-grid::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testi-card {
+            position: relative;
+            background: #fdfaf4;
+            border: 1px solid #eee2cc;
+            border-radius: 8px;
+            padding: 50px 34px 34px;
+            text-align: center;
+            transition: border-color .3s ease, box-shadow .3s ease;
+            flex: 0 0 calc((100% - 60px) / 3);
+            scroll-snap-align: start;
+        }
+        
+        .testi-card:hover {
+            border-color: #b7e4d8;
+            box-shadow: 0 10px 26px rgba(15, 122, 92, 0.1);
+        }
+        
+        .testi-quote {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: 0 6px 14px rgba(15, 122, 92, 0.3);
+        }
+        
+        .testi-avatar {
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid rgba(23, 165, 137, 0.28);
+            color: #0f7a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 20px;
+        }
+        
+        .testi-stars {
+            color: #f5b942;
+            font-size: 14px;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        
+        .testi-text {
+            font-style: italic;
+            font-size: 15px;
+            line-height: 1.75;
+            color: #3a3a3a;
+            margin-bottom: 22px;
+            min-height: 110px;
+        }
+        
+        .testi-divider {
+            width: 44px;
+            height: 1px;
+            background: rgba(23, 165, 137, 0.28);
+            margin: 0 auto 20px;
+        }
+        
+        .testi-name {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 15px;
+            color: #262626;
+        }
+        
+        .testi-role {
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #5b5b5b;
+            margin-top: 6px;
+        }
+        
+        .testi-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(15, 122, 92, 0.35);
+            z-index: 5;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        
+        .testi-nav-btn:hover {
+            transform: translateY(-50%) translateY(-2px) scale(1.06);
+            box-shadow: 0 10px 22px rgba(15, 122, 92, 0.45);
+        }
+        
+        .testi-nav-btn.prev {
+            left: -23px;
+        }
+        
+        .testi-nav-btn.next {
+            right: -23px;
+        }
+        
+        .testi-nav-btn:disabled {
+            opacity: 0.35;
+            cursor: default;
+            box-shadow: 0 6px 16px rgba(15, 122, 92, 0.35);
+        }
+        
+        .testi-nav-btn:disabled:hover {
+            transform: translateY(-50%);
+            box-shadow: 0 6px 16px rgba(15, 122, 92, 0.35);
+        }
+        
+        .add-review-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: 0 6px 16px rgba(15, 122, 92, 0.35);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        
+        .add-review-btn:hover {
+            transform: translateY(-2px) scale(1.06);
+            box-shadow: 0 10px 22px rgba(15, 122, 92, 0.45);
+        }
+        
+        .review-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 20, 18, 0.5);
+            z-index: 1400;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .review-modal-overlay.open {
+            display: flex;
+        }
+        
+        .review-modal {
+            background: #ffffff;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 440px;
+            padding: 34px 32px 28px;
+            position: relative;
+        }
+        
+        .review-modal h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            color: #262626;
+            font-size: 21px;
+            margin-bottom: 6px;
+        }
+        
+        .review-modal p.hint {
+            color: #5b5b5b;
+            font-size: 13.5px;
+            margin-bottom: 22px;
+        }
+        
+        .review-close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: #5b5b5b;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .review-close:hover {
+            color: #0f7a5c;
+        }
+        
+        .review-modal .field {
+            margin-bottom: 18px;
+        }
+        
+        .review-modal .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #262626;
+            margin-bottom: 8px;
+        }
+        
+        .review-modal .field input,
+        .review-modal .field textarea {
+            width: 100%;
+            border: 1px solid #e2dccb;
+            border-radius: 6px;
+            padding: 11px 14px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #262626;
+            resize: vertical;
+        }
+        
+        .review-modal .field input:focus,
+        .review-modal .field textarea:focus {
+            outline: none;
+            border-color: #17a589;
+        }
+        
+        .star-picker {
+            display: flex;
+            gap: 6px;
+            font-size: 24px;
+            color: #d9d2bd;
+        }
+        
+        .star-picker i {
+            cursor: pointer;
+            transition: color .15s ease;
+        }
+        
+        .star-picker i.on {
+            color: #f5b942;
+        }
+        
+        .review-submit {
+            width: 100%;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14.5px;
+            letter-spacing: 0.3px;
+            padding: 13px 0;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: box-shadow .25s ease;
+        }
+        
+        .review-submit:hover {
+            box-shadow: 0 8px 18px rgba(15, 122, 92, 0.35);
+        }
+        
+        @media (max-width: 991.98px) {
+            .testi-card {
+                flex: 0 0 calc((100% - 30px) / 2);
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .testimonials {
+                padding: 70px 20px 90px;
+            }
+            .testi-card {
+                flex: 0 0 85%;
+            }
+            .testi-title-row {
+                flex-direction: column;
+                gap: 14px;
+            }
+            .testi-nav-btn.prev {
+                left: -6px;
+            }
+            .testi-nav-btn.next {
+                right: -6px;
+            }
+        }
+    </style>
+
+    <!-- ============================================================
+         SECTION "ARTIKEL & UPDATE TERBARU"
+    ============================================================= -->
+    <style>
+        .articles {
+            background-color: #fdfaf4;
+            background-image: linear-gradient(rgba(23, 165, 137, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 165, 137, 0.06) 1px, transparent 1px);
+            background-size: 64px 64px;
+            background-position: center;
+            padding: 100px 30px 120px;
+        }
+        
+        .articles-head {
+            max-width: 720px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+        
+        .articles-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0f7a5c;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        
+        .articles-eyebrow::before,
+        .articles-eyebrow::after {
+            content: "";
+            width: 34px;
+            height: 1px;
+            background: #17a589;
+        }
+        
+        .articles-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #262626;
+            font-size: clamp(30px, 4vw, 46px);
+            margin-bottom: 18px;
+        }
+        
+        .articles-head p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15.5px;
+            line-height: 1.75;
+            color: #5b5b5b;
+        }
+        /* ---- carousel wrapper (geser ke samping) ---- */
+        
+        .articles-carousel-wrap {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        
+        .articles-grid {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            padding: 6px 6px 18px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .articles-grid::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .article-card {
+            display: block;
+            text-decoration: none;
+            background: #ffffff;
+            border: 1px solid #eee2cc;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+            flex: 0 0 calc((100% - 60px) / 3);
+            scroll-snap-align: start;
+        }
+        /* ---- tombol panah kiri/kanan carousel ---- */
+        
+        .articles-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(15, 122, 92, 0.35);
+            z-index: 5;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        
+        .articles-nav-btn:hover {
+            transform: translateY(-50%) translateY(-2px) scale(1.06);
+            box-shadow: 0 10px 22px rgba(15, 122, 92, 0.45);
+        }
+        
+        .articles-nav-btn.prev {
+            left: -23px;
+        }
+        
+        .articles-nav-btn.next {
+            right: -23px;
+        }
+        
+        .articles-nav-btn:disabled {
+            opacity: 0.35;
+            cursor: default;
+            box-shadow: 0 6px 16px rgba(15, 122, 92, 0.35);
+        }
+        
+        .articles-nav-btn:disabled:hover {
+            transform: translateY(-50%);
+            box-shadow: 0 6px 16px rgba(15, 122, 92, 0.35);
+        }
+        
+        .article-card:hover {
+            transform: translateY(-6px);
+            border-color: #b7e4d8;
+            box-shadow: 0 18px 34px rgba(15, 122, 92, 0.14);
+        }
+        
+        .article-thumb {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .article-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .5s ease;
+        }
+        
+        .article-card:hover .article-thumb img {
+            transform: scale(1.06);
+        }
+        
+        .article-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(23, 165, 137, 0.92);
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 999px;
+        }
+        
+        .article-body {
+            padding: 26px 26px 28px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #5b5b5b;
+            margin-bottom: 14px;
+            letter-spacing: 0.2px;
+        }
+        
+        .article-meta i {
+            color: #17a589;
+            font-size: 12px;
+        }
+        
+        .article-card h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            font-size: 18.5px;
+            line-height: 1.4;
+            color: #262626;
+            margin-bottom: 16px;
+            min-height: 78px;
+        }
+        
+        .article-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 13.5px;
+            color: #0f7a5c;
+        }
+        
+        .article-link i {
+            font-size: 13px;
+            transition: transform .25s ease;
+        }
+        
+        .article-card:hover .article-link i {
+            transform: translateX(4px);
+        }
+        /* ---- tombol lihat semua ---- */
+        
+        .articles-more {
+            text-align: center;
+            margin-top: 54px;
+        }
+        
+        .articles-more a {
+            display: inline-block;
+            text-decoration: none;
+            color: #262626;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 15px 38px;
+            border: 1px solid #17a589;
+            border-radius: 999px;
+            position: relative;
+            overflow: hidden;
+            transition: color .35s ease;
+            z-index: 1;
+        }
+        
+        .articles-more a::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .35s ease;
+            z-index: -1;
+        }
+        
+        .articles-more a:hover {
+            color: #ffffff;
+        }
+        
+        .articles-more a:hover::before {
+            transform: scaleX(1);
+        }
+        /* ============================================================
+       RESPONSIVE
+    ============================================================= */
+        
+        @media (max-width: 991.98px) {
+            .article-card {
+                flex: 0 0 calc((100% - 30px) / 2);
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .articles {
+                padding: 70px 20px 90px;
+            }
+            .article-card {
+                flex: 0 0 85%;
+            }
+            .article-card h3 {
+                min-height: 0;
+            }
+            .articles-nav-btn.prev {
+                left: -6px;
+            }
+            .articles-nav-btn.next {
+                right: -6px;
+            }
+        }
+    </style>
+
+    <!-- ============================================================
+         SECTION "PERTANYAAN UMUM" / FAQ
+    ============================================================= -->
+    <style>
+        .faq {
+            background-color: #fdfaf4;
+            background-image: linear-gradient(rgba(23, 165, 137, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 165, 137, 0.06) 1px, transparent 1px);
+            background-size: 64px 64px;
+            background-position: center;
+            padding: 100px 30px 120px;
+        }
+        
+        .faq-head {
+            max-width: 780px;
+            margin: 0 auto 54px;
+            text-align: center;
+        }
+        
+        .faq-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #0f7a5c;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        
+        .faq-eyebrow::before,
+        .faq-eyebrow::after {
+            content: "";
+            width: 34px;
+            height: 1px;
+            background: #17a589;
+        }
+        
+        .faq-title-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+        
+        .faq-title {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #262626;
+            font-size: clamp(30px, 4vw, 46px);
+        }
+        
+        .faq-head p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            line-height: 1.75;
+            color: #5b5b5b;
+        }
+        /* ---- tombol bulat hijau untuk ajukan pertanyaan ---- */
+        
+        .add-question-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: 0 6px 16px rgba(15, 122, 92, 0.35);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        
+        .add-question-btn:hover {
+            transform: translateY(-2px) scale(1.06);
+            box-shadow: 0 10px 22px rgba(15, 122, 92, 0.45);
+        }
+        /* ============================================================
+           CARD RAIL (pengganti accordion)
+        ============================================================= */
+        
+        .faq-rail-wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .faq-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid rgba(23, 165, 137, 0.28);
+            background: #ffffff;
+            color: #0f7a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 8px 18px rgba(15, 122, 92, 0.14);
+            transition: background .25s ease, color .25s ease, opacity .25s ease;
+        }
+        
+        .faq-nav:hover {
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+        }
+        
+        .faq-nav.prev {
+            left: -23px;
+        }
+        
+        .faq-nav.next {
+            right: -23px;
+        }
+        
+        .faq-nav[disabled] {
+            opacity: 0.35;
+            cursor: default;
+            pointer-events: none;
+        }
+        
+        .faq-list {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            padding: 6px 6px 18px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .faq-list::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .faq-item {
+            flex: 0 0 260px;
+            scroll-snap-align: start;
+            background: #faf3e6;
+            border: 1px solid #eee2cc;
+            border-radius: 10px;
+            padding: 30px 26px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 190px;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: #b7e4d8;
+            box-shadow: 0 10px 26px rgba(15, 122, 92, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .faq-item.pending {
+            background: #ffffff;
+            border-style: dashed;
+            border-color: rgba(23, 165, 137, 0.28);
+        }
+        
+        .faq-item h3 {
+            font-weight: 700;
+            font-size: 17px;
+            color: #262626;
+            line-height: 1.45;
+        }
+        
+        .faq-item-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 22px;
+        }
+        
+        .faq-item-tag {
+            font-size: 12px;
+            color: #0f7a5c;
+            font-weight: 600;
+        }
+        
+        .faq-pending-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: #0f7a5c;
+            background: #b7e4d8;
+            padding: 5px 12px;
+            border-radius: 999px;
+        }
+        
+        .faq-item .chevron {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid rgba(23, 165, 137, 0.28);
+            color: #0f7a5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+        /* ---- dots ---- */
+        
+        .faq-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .faq-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(23, 165, 137, 0.28);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: background .25s ease, width .25s ease;
+        }
+        
+        .faq-dot.active {
+            background: #0f7a5c;
+            width: 20px;
+            border-radius: 4px;
+        }
+        /* ============================================================
+           MODAL — JAWABAN
+        ============================================================= */
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 20, 18, 0.5);
+            z-index: 1400;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.open {
+            display: flex;
+        }
+        
+        .answer-modal {
+            background: #ffffff;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 480px;
+            padding: 38px 34px 32px;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            color: #5b5b5b;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .modal-close:hover {
+            color: #0f7a5c;
+        }
+        
+        .answer-modal .modal-eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #0f7a5c;
+            margin-bottom: 14px;
+        }
+        
+        .answer-modal h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            color: #262626;
+            font-size: 20px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+        
+        .answer-modal .modal-body {
+            font-size: 14.5px;
+            line-height: 1.8;
+            color: #5b5b5b;
+            border-top: 1px solid rgba(23, 165, 137, 0.28);
+            padding-top: 20px;
+        }
+        
+        .answer-modal .faq-asker {
+            font-size: 12px;
+            color: #5b5b5b;
+            margin-top: 16px;
+            font-style: italic;
+        }
+        /* ---- modal ajukan pertanyaan ---- */
+        
+        .question-modal {
+            background: #ffffff;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 440px;
+            padding: 34px 32px 28px;
+            position: relative;
+        }
+        
+        .question-modal h3 {
+            font-family: 'Cinzel', serif;
+            font-weight: 500;
+            color: #262626;
+            font-size: 21px;
+            margin-bottom: 6px;
+        }
+        
+        .question-modal p.hint {
+            color: #5b5b5b;
+            font-size: 13.5px;
+            margin-bottom: 22px;
+        }
+        
+        .question-modal .field {
+            margin-bottom: 18px;
+        }
+        
+        .question-modal .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #262626;
+            margin-bottom: 8px;
+        }
+        
+        .question-modal .field input,
+        .question-modal .field textarea {
+            width: 100%;
+            border: 1px solid #e2dccb;
+            border-radius: 6px;
+            padding: 11px 14px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #262626;
+            resize: vertical;
+        }
+        
+        .question-modal .field input:focus,
+        .question-modal .field textarea:focus {
+            outline: none;
+            border-color: #17a589;
+        }
+        
+        .question-submit {
+            width: 100%;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #17a589, #0f7a5c);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14.5px;
+            letter-spacing: 0.3px;
+            padding: 13px 0;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: box-shadow .25s ease;
+        }
+        
+        .question-submit:hover {
+            box-shadow: 0 8px 18px rgba(15, 122, 92, 0.35);
+        }
+        /* ============================================================
+       RESPONSIVE
+    ============================================================= */
+        
+        @media (max-width: 650px) {
+            .faq {
+                padding: 70px 20px 90px;
+            }
+            .faq-title-row {
+                flex-direction: column;
+                gap: 14px;
+            }
+            .faq-nav {
+                display: none;
+            }
+            .faq-item {
+                flex-basis: 220px;
+                padding: 24px 22px;
+                min-height: 170px;
+            }
+            .answer-modal,
+            .question-modal {
+                padding: 30px 22px 26px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ============================================================
+         HERO (termasuk NAVBAR di dalamnya)
+    ============================================================= -->
+    <section class="hero">
+
+        <!-- BACKGROUND SLIDES -->
+        <div class="hero-slide active"></div>
+        <div class="hero-slide"></div>
+        <div class="hero-slide"></div>
+
+        <!-- NAVBAR (dengan dropdown + responsive) -->
+        <nav class="navbar">
+
+            <a class="navbar-brand" href="#">
+                <img src="bmb-logo-mark.png" alt="" class="brand-logo" onerror="this.classList.add('img-error')">
+                <span class="brand-fallback">HOTEL SALAK</span>
+                <div class="brand-text">
+                    <span class="brand-text-title"></span>
+                    <span class="brand-text-sub"></span>
+                </div>
+            </a>
+
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Buka menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+
+                <div class="nav-item">
+                    <a class="nav-link" href="promo.html">Layanan</a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" href="#artikel">Artikel</a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" href="#faq">FAQ</a>
+                </div>
+
+
+                <!-- Tombol Hubungi Kami versi mobile (muncul di dalam drawer menu) -->
+                <a class="navbar-cta navbar-cta-mobile" href="https://wa.me/">Hubungi Kami</a>
+
+            </div>
+
+            <!-- Tombol Hubungi Kami versi desktop (di ujung kanan navbar) -->
+            <a class="navbar-cta" href="https://wa.me/">Hubungi Kami</a>
+
+        </nav>
+
+        <div class="nav-overlay" id="navOverlay"></div>
+
+        <!-- CONTENT -->
+        <div class="hero-content">
+            <p class="hero-subtitle" id="hero-subtitle">
+                A Heritage Retreat in the Heart of Bogor
+            </p>
+
+            <h1 class="hero-title" id="hero-title">
+                HOTEL SALAK
+            </h1>
+
+            <a href="#" class="hero-btn">
+
+        KONSULTASI GRATIS    </a>
+        </div>
+
+    </section>
+
+    <!-- ============================================================
+         PROMO SECTION (BMB Space) — ditempel tepat di bawah hero
+    ============================================================= -->
+    <section class="promo">
+        <div class="container">
+
+            <!-- LEFT: fixed content, never changes with the slider -->
+            <div class="content">
+                <div class="tag"><span class="tag-rule"></span>Promo spesial</div>
+
+                <h1>Ruang meeting yang lebih nyaman untuk tim Anda</h1>
+
+                <p>BMB Space menghadirkan ruang meeting yang nyaman, profesional, dan lengkap — cocok untuk rapat internal, workshop, training, maupun acara perusahaan lainnya.</p>
+
+                <ul class="facts">
+                    <li>Kapasitas fleksibel, 6 hingga 50 orang</li>
+                    <li>Proyektor, sound system, dan wifi cepat termasuk</li>
+                    <li>Lokasi strategis dengan akses parkir luas</li>
+                </ul>
+
+                <a href="#" class="cta">Lihat Promo</a>
+            </div>
+
+            <!-- RIGHT: only the photo cycles, caption text stays fixed -->
+            <div class="viewer">
+                <div class="frame">
+                    <img id="promoImageA" src="promo-1.jpeg" alt="Ruang meeting BMB Space">
+                    <img id="promoImageB" class="is-hidden" src="" alt="">
+                    <div class="frame-overlay"></div>
+                    <div class="caption">
+                        <span>BMB Space</span>
+                        <h2>Ruang meeting profesional</h2>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="nav-buttons">
+                        <button id="prevBtn" aria-label="Foto sebelumnya">‹</button>
+                        <button id="nextBtn" aria-label="Foto berikutnya">›</button>
+                    </div>
+                    <div class="index" id="slideIndex">01 / 04</div>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION "MENGAPA MEMILIH HOTEL SALAK" (poin bergaya nomor)
+    ============================================================= -->
+    <section class="why-choose" id="mengapa">
+        <div class="why-choose-inner">
+
+            <div class="why-image-col">
+                <div class="why-image">
+                    <img src="no.1.jpeg" alt="Hotel Salak">
+                </div>
+                <div class="why-about">
+                    <div class="lang-switch" id="langSwitch">
+                        <span class="lang-indicator"></span>
+                        <button type="button" class="lang-btn active" data-lang="id" aria-label="Bahasa Indonesia" aria-pressed="true">ID</button>
+                        <button type="button" class="lang-btn" data-lang="en" aria-label="English" aria-pressed="false">ENG</button>
+                    </div>
+                    <h3 data-id="Tentang BMB Space" data-en="About BMB Space">Tentang BMB Space</h3>
+                    <p data-id="BMB Space adalah ruang meeting modern di jantung Kota Bogor yang dirancang untuk mendukung berbagai kebutuhan pertemuan bisnis, rapat korporat, hingga acara komunitas. Dilengkapi fasilitas lengkap dan suasana nyaman, menjadikannya pilihan utama untuk meeting yang produktif dengan pelayanan yang ramah dan profesional bagi setiap tamu."
+                        data-en="BMB Space is a modern meeting space in the heart of Bogor, designed to support a wide range of business meetings, corporate gatherings, and community events. Equipped with complete facilities and a comfortable atmosphere, it is the top choice for productive meetings backed by friendly and professional service for every guest.">BMB Space adalah ruang meeting modern di jantung Kota Bogor yang dirancang untuk mendukung berbagai kebutuhan pertemuan bisnis, rapat korporat, hingga acara komunitas. Dilengkapi fasilitas lengkap dan suasana nyaman, menjadikannya
+                        pilihan utama untuk meeting yang produktif dengan pelayanan yang ramah dan profesional bagi setiap tamu.</p>
+
+                    <div class="facilities-header">
+                        <p class="why-eyebrow" data-id="Mengapa Harus Kami" data-en="Why Choose Us">Mengapa Harus Kami</p>
+                        <h2 class="why-title" data-id="Mengapa Memilih BMB Space?" data-en="Why Choose BMB Space?">Mengapa Memilih BMB Space?</h2>
+                    </div>
+
+                    <ol class="why-list">
+                        <li>
+                            <span class="why-num">1</span>
+                            <div>
+                                <h3 data-id="Lokasi Strategis" data-en="Strategic Location">Lokasi Strategis</h3>
+                                <p data-id="Berada di pusat kota Bogor, memudahkan akses ke berbagai destinasi utama sekaligus meningkatkan citra bagi tamu bisnis maupun wisata." data-en="Located in the center of Bogor, offering easy access to major destinations while enhancing prestige for both business and leisure guests.">Berada di pusat kota Bogor, memudahkan akses ke berbagai destinasi utama sekaligus meningkatkan citra bagi tamu bisnis maupun wisata.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="why-num">2</span>
+                            <div>
+                                <h3 data-id="Legalitas & Standar Terjamin" data-en="Guaranteed Legality & Standards">Legalitas & Standar Terjamin</h3>
+                                <p data-id="Bangunan dan pengelolaan BMB Space telah memenuhi ketentuan tata ruang serta perizinan yang berlaku sesuai regulasi setempat." data-en="The building and management of BMB Space fully comply with local zoning regulations and licensing requirements.">Bangunan dan pengelolaan BMB Space telah memenuhi ketentuan tata ruang serta perizinan yang berlaku sesuai regulasi setempat.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="why-num">3</span>
+                            <div>
+                                <h3 data-id="Manajemen Layanan Rapi" data-en="Well-Organized Service Management">Manajemen Layanan Rapi</h3>
+                                <p data-id="Penanganan reservasi ruang meeting, administrasi, dan permintaan tamu dilakukan secara efisien dengan notifikasi dan respons yang cepat." data-en="Meeting room reservations, administration, and guest requests are handled efficiently with prompt notifications and responses.">Penanganan reservasi ruang meeting, administrasi, dan permintaan tamu dilakukan secara efisien dengan notifikasi dan respons yang cepat.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="why-num">4</span>
+                            <div>
+                                <h3 data-id="Resepsionis Profesional" data-en="Professional Reception">Resepsionis Profesional</h3>
+                                <p data-id="Tim front office yang handal dan ramah, siap membantu kebutuhan tamu maupun mitra bisnis kapan saja dengan sepenuh hati." data-en="A reliable and friendly front office team, ready to wholeheartedly assist guests and business partners anytime.">Tim front office yang handal dan ramah, siap membantu kebutuhan tamu maupun mitra bisnis kapan saja dengan sepenuh hati.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="why-content">
+                <p class="why-eyebrow" data-id="Fasilitas Kami" data-en="Our Facilities">Fasilitas Kami</p>
+                <h2 class="why-title" data-id="Fasilitas Lengkap" data-en="Complete Facilities">Fasilitas Lengkap</h2>
+                <p class="facilities-subtitle" data-id="Kami menyediakan segala yang di butuhkan untuk kenyamanan kerja dan bisnis." data-en="We provide everything you need for a comfortable work and business experience.">Kami menyediakan segala yang di butuhkan untuk kenyamanan kerja dan bisnis.</p>
+
+                <ol class="why-list">
+                    <li>
+                        <span class="why-num">1</span>
+                        <div>
+                            <h3 data-id="Meeting Room" data-en="Meeting Room">Meeting Room</h3>
+                            <p data-id="Ruang meeting nyaman dan representatif untuk diskusi maupun presentasi bisnis." data-en="A comfortable, professional meeting room for discussions and business presentations.">Ruang meeting nyaman dan representatif untuk diskusi maupun presentasi bisnis.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="why-num">2</span>
+                        <div>
+                            <h3 data-id="Aula" data-en="Hall">Aula</h3>
+                            <p data-id="Ruang serbaguna berkapasitas besar untuk acara, seminar, dan pertemuan skala besar." data-en="A spacious multi-purpose hall for events, seminars, and large-scale gatherings.">Ruang serbaguna berkapasitas besar untuk acara, seminar, dan pertemuan skala besar.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="why-num">3</span>
+                        <div>
+                            <h3 data-id="Work Space" data-en="Work Space">Work Space</h3>
+                            <p data-id="Area kerja bersama yang nyaman untuk mendukung produktivitas harian." data-en="A comfortable co-working area to support your daily productivity.">Area kerja bersama yang nyaman untuk mendukung produktivitas harian.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="why-num">4</span>
+                        <div>
+                            <h3 data-id="Virtual Office" data-en="Virtual Office">Virtual Office</h3>
+                            <p data-id="Alamat kantor profesional untuk kebutuhan bisnis tanpa harus menyewa ruang fisik." data-en="A professional office address for your business needs without renting physical space.">Alamat kantor profesional untuk kebutuhan bisnis tanpa harus menyewa ruang fisik.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="why-num">5</span>
+                        <div>
+                            <h3 data-id="Wi-Fi Berkecepatan Tinggi" data-en="High-Speed Wi-Fi">Wi-Fi Berkecepatan Tinggi</h3>
+                            <p data-id="Koneksi internet stabil dan cepat untuk mendukung semua aktivitas kerja Anda." data-en="A stable, fast internet connection to support all your work activities.">Koneksi internet stabil dan cepat untuk mendukung semua aktivitas kerja Anda.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="why-num">6</span>
+                        <div>
+                            <h3 data-id="Ruangan Ber-AC" data-en="Air-Conditioned Room">Ruangan Ber-AC</h3>
+                            <p data-id="Seluruh ruangan dilengkapi pendingin udara untuk kenyamanan selama beraktivitas." data-en="Every room is fully air-conditioned for your comfort throughout the day.">Seluruh ruangan dilengkapi pendingin udara untuk kenyamanan selama beraktivitas.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="why-num">7</span>
+                        <div>
+                            <h3 data-id="Area Tunggu" data-en="Waiting Area">Area Tunggu</h3>
+                            <p data-id="Ruang tunggu yang nyaman bagi tamu maupun klien yang berkunjung." data-en="A comfortable waiting area for visiting guests and clients.">Ruang tunggu yang nyaman bagi tamu maupun klien yang berkunjung.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="why-num">8</span>
+                        <div>
+                            <h3 data-id="Alamat Bisnis Resmi" data-en="Official Business Address">Alamat Bisnis Resmi</h3>
+                            <p data-id="Alamat legal yang dapat digunakan untuk keperluan administrasi dan legalitas usaha." data-en="A legal address that can be used for business administration and legality purposes.">Alamat legal yang dapat digunakan untuk keperluan administrasi dan legalitas usaha.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="why-num">9</span>
+                        <div>
+                            <h3 data-id="Layanan Administrasi Bisnis" data-en="Business Administration Service">Layanan Administrasi Bisnis</h3>
+                            <p data-id="Bantuan pengurusan dokumen dan kebutuhan administrasi bisnis Anda." data-en="Assistance with document processing and your business administration needs.">Bantuan pengurusan dokumen dan kebutuhan administrasi bisnis Anda.</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION "LAYANAN KAMI" — ditempel di bagian paling bawah
+    ============================================================= -->
+    <section class="services" id="layanan">
+        <div class="services-head">
+            <span class="services-eyebrow">Solusi Bisnis Menyeluruh</span>
+            <h2 class="services-title">Layanan Kami</h2>
+            <div class="services-rule"></div>
+        </div>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+                <div class="service-icon"><i class="bi bi-building"></i></div>
+                <h3>Virtual Office</h3>
+                <p>Solusi hemat biaya untuk mendapatkan alamat kantor prestisius di pusat bisnis Bogor tanpa biaya operasional fisik.</p>
+                <a href="#" class="service-link">Pelajari Lebih Lanjut <i class="bi bi-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="bi bi-diagram-3"></i></div>
+                <h3>Workspace</h3>
+                <p>Menyediakan workspace profesional yang nyaman bagi individu, freelancer, hingga tim kecil yang membutuhkan tempat kerja fleksibel.</p>
+                <a href="#" class="service-link">Pelajari Lebih Lanjut <i class="bi bi-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="bi bi-vector-pen"></i></div>
+                <h3>Legal Setup</h3>
+                <p>Membantu proses pendirian dan pengurusan legalitas usaha, mulai dari penyiapan dokumen hingga pengurusan izin.</p>
+                <a href="#" class="service-link">Pelajari Lebih Lanjut <i class="bi bi-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="bi bi-calculator"></i></div>
+                <h3>Accounting &amp; Tax</h3>
+                <p>Menyediakan layanan pembukuan dan konsultasi perpajakan untuk membantu bisnis mengelola keuangan dengan lebih rapi.</p>
+                <a href="#" class="service-link">Pelajari Lebih Lanjut <i class="bi bi-arrow-right"></i></a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="bi bi-globe2"></i></div>
+                <h3>Digital End-to-End</h3>
+                <p>Membantu bisnis tampil profesional dan menjangkau lebih banyak pelanggan di dunia digital.</p>
+                <a href="#" class="service-link">Pelajari Lebih Lanjut <i class="bi bi-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION "HARGA LAYANAN" — ditempel di bagian paling bawah
+    ============================================================= -->
+    <section class="pricing" id="harga">
+        <div class="wrap">
+            <p class="eyebrow">Daftar Harga</p>
+            <h2>Harga Layanan BMB</h2>
+            <p class="sub">Setiap layanan memiliki beberapa paket sesuai kebutuhan bisnis. Kunjungi halaman layanan untuk detail lengkap.</p>
+
+            <div class="table">
+                <div class="row">
+                    <span class="num">1</span>
+                    <div class="name">Virtual Office</div>
+                    <div class="price">Rp 1,5jt <span class="unit">/tahun</span></div>
+                    <a class="btn" href="#">Lihat Paket</a>
+                </div>
+                <div class="row">
+                    <span class="num">2</span>
+                    <div class="name">Workspace</div>
+                    <div class="price">Rp 500.000 <span class="unit">/bulan</span></div>
+                    <a class="btn" href="#">Lihat Paket</a>
+                </div>
+                <div class="row">
+                    <span class="num">3</span>
+                    <div class="name">Legal Setup</div>
+                    <div class="price">Lihat Seluruh Paket</div>
+                    <a class="btn" href="#">Lihat Paket</a>
+                </div>
+                <div class="row">
+                    <span class="num">4</span>
+                    <div class="name">Accounting &amp; Tax</div>
+                    <div class="price">Hubungi kami untuk harga</div>
+                    <a class="btn" href="#">Lihat Paket</a>
+                </div>
+                <div class="row">
+                    <span class="num">5</span>
+                    <div class="name">Digital End-to-End</div>
+                    <div class="price">Hubungi kami untuk harga</div>
+                    <a class="btn" href="#">Lihat Paket</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION "INTIP SUASANA KANTOR KAMI" — ditempel di bagian paling bawah
+    ============================================================= -->
+    <section class="office-gallery" id="galeri">
+        <div class="gallery-head">
+            <h2 class="gallery-title">Intip Suasana Kantor Kami</h2>
+            <p class="gallery-subtitle">Ruang kerja dan fasilitas yang dirancang untuk mendukung produktivitas bisnis.</p>
+        </div>
+
+        <div class="gallery-wrap">
+
+            <button class="gallery-nav gallery-prev" id="galleryPrev" aria-label="Foto sebelumnya">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+            <button class="gallery-nav gallery-next" id="galleryNext" aria-label="Foto berikutnya">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+
+            <div class="gallery-viewport">
+                <div class="gallery-track" id="galleryTrack">
+
+                    <div class="gallery-slide">
+                        <img src="no.1.jpeg" alt="Ruang tunggu kantor BMB">
+                        <div class="gallery-caption">Ruang Tunggu</div>
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="no.6.jpeg" alt="Meeting room BMB Space">
+                        <div class="gallery-caption">Meeting Room</div>
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="no.4.jpeg" alt="Area kerja bersama">
+                        <div class="gallery-caption">Work Space</div>
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="no.1.jpeg" alt="Resepsionis BMB Space">
+                        <div class="gallery-caption">Resepsionis</div>
+                    </div>
+
+                    <div class="gallery-slide">
+                        <img src="no.6.jpeg" alt="Lobi kantor BMB Space">
+                        <div class="gallery-caption">Lobi Kantor</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="gallery-controls">
+                <div class="gallery-index" id="galleryIndex">01 / 06</div>
+                <div class="gallery-progress-track">
+                    <div class="gallery-progress-bar" id="galleryProgress"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION "APA KATA KLIEN KAMI" — ditempel di bagian paling bawah
+    ============================================================= -->
+    <section class="testimonials" id="testimoni">
+        <div class="testi-head">
+            <div class="testi-eyebrow">Ulasan Tamu</div>
+            <div class="testi-title-row">
+                <h2 class="testi-title">Apa Kata Klien Kami</h2>
+                <button class="add-review-btn" id="openReviewBtn" aria-label="Tambah ulasan">
+                <i class="bi bi-plus-lg"></i>
+            </button>
+            </div>
+        </div>
+
+        <div class="testi-carousel-wrap">
+            <button class="testi-nav-btn prev" id="testiPrevBtn" aria-label="Sebelumnya">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <div class="testi-grid" id="testiGrid">
+
+                <div class="testi-card">
+                    <div class="testi-quote"><i class="bi bi-quote"></i></div>
+                    <div class="testi-avatar"><i class="bi bi-person-fill"></i></div>
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Kalau lagi rehat mau kulineran disekitar lokasi, banyak sekali kuliner viral. Layanannya, stafnya ramah, memuaskan, juga banyak pilihan opsi untuk joint di BMB Space."</p>
+                    <div class="testi-divider"></div>
+                    <div class="testi-name">Agus Siswanto</div>
+                    <div class="testi-role">CEO, TechForward</div>
+                </div>
+
+                <div class="testi-card">
+                    <div class="testi-quote"><i class="bi bi-quote"></i></div>
+                    <div class="testi-avatar"><i class="bi bi-person-fill"></i></div>
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Fasilitas meeting room-nya sangat modern dan nyaman. Lokasinya strategis dan mudah ditemukan oleh klien saya. Sangat direkomendasikan!"</p>
+                    <div class="testi-divider"></div>
+                    <div class="testi-name">Siska Amelia</div>
+                    <div class="testi-role">Lawyer, SA Associates</div>
+                </div>
+
+                <div class="testi-card">
+                    <div class="testi-quote"><i class="bi bi-quote"></i></div>
+                    <div class="testi-avatar"><i class="bi bi-person-fill"></i></div>
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">"Layanan virtual office paling efisien di Bogor. Penanganan suratnya sangat cepat dan tim support-nya sangat membantu pertanyaan teknis kami."</p>
+                    <div class="testi-divider"></div>
+                    <div class="testi-name">Budi Santoso</div>
+                    <div class="testi-role">Founder, CreativeBox</div>
+                </div>
+
+            </div>
+
+            <button class="testi-nav-btn next" id="testiNextBtn" aria-label="Berikutnya">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION "ARTIKEL & UPDATE TERBARU"
+    ============================================================= -->
+    <section class="articles" id="artikel">
+        <div class="articles-head">
+            <div class="articles-eyebrow">Blog &amp; Insight</div>
+            <h2 class="articles-title">Artikel &amp; Update Terbaru</h2>
+            <p>Kumpulan artikel, tips, dan insight seputar dunia bisnis, ruang kerja, legalitas usaha, keuangan, hingga strategi digital.</p>
+        </div>
+
+        <div class="articles-carousel-wrap">
+            <button class="articles-nav-btn prev" id="artPrevBtn" aria-label="Sebelumnya">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+
+            <div class="articles-grid" id="articlesGrid">
+
+                <a href="pages/articles/virtual-office-strategi-cerdas.html" class="article-card">
+                    <div class="article-thumb">
+                        <span class="article-tag">Virtual Office</span>
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=900&q=80" alt="Virtual Office: Strategi Cerdas Membangun Bisnis">
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta"><i class="bi bi-calendar3"></i> 3 Sep 2026 &nbsp;•&nbsp; 5 menit baca</div>
+                        <h3>Virtual Office: Strategi Cerdas Membangun Bisnis yang Profesional di Era Digital</h3>
+                        <span class="article-link">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <a href="pages/articles/mengenal-rdtr-alamat-usaha-sesuai-tata-ruang.html" class="article-card">
+                    <div class="article-thumb">
+                        <span class="article-tag">Legalitas</span>
+                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=80" alt="Mengenal RDTR: Alamat Usaha Sesuai Tata Ruang">
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta"><i class="bi bi-calendar3"></i> 28 Agu 2026 &nbsp;•&nbsp; 6 menit baca</div>
+                        <h3>Mengenal RDTR: Alasan Mengapa Alamat Usaha yang Sesuai Tata Ruang Sangat Penting</h3>
+                        <span class="article-link">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </a>
+
+                <a href="pages/articles/belajar-tiktok-affiliate-bareng-bmb.html" class="article-card">
+                    <div class="article-thumb">
+                        <span class="article-tag">Digital</span>
+                        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=900&q=80" alt="Belajar TikTok Affiliate Bareng BMB">
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta"><i class="bi bi-calendar3"></i> 20 Agu 2026 &nbsp;•&nbsp; 4 menit baca</div>
+                        <h3>Belajar TikTok Affiliate Bareng BMB: Bukan Cuma Belajar, Tapi Terus Didampingi</h3>
+                        <span class="article-link">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                    </div>
+                </a>
+
+            </div>
+
+            <button class="articles-nav-btn next" id="artNextBtn" aria-label="Berikutnya">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
+        <div class="articles-more">
+            <a href="#">Lihat Semua Artikel</a>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION "PERTANYAAN UMUM" / FAQ
+    ============================================================= -->
+    <section class="faq" id="faq">
+        <div class="faq-head">
+            <div class="faq-eyebrow">Bantuan</div>
+            <div class="faq-title-row">
+                <h2 class="faq-title">Pertanyaan Umum</h2>
+                <button class="add-question-btn" id="openQuestionBtn" aria-label="Ajukan pertanyaan">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+            </div>
+            <p>Belum ketemu jawabannya? Klik tombol + di atas untuk mengirim pertanyaan Anda, tim kami akan segera menjawabnya. Geser atau klik panah untuk melihat pertanyaan lainnya.</p>
+        </div>
+
+        <div class="faq-rail-wrap">
+            <button class="faq-nav prev" id="faqPrevBtn" aria-label="Sebelumnya">&lt;</button>
+            <button class="faq-nav next" id="faqNextBtn" aria-label="Berikutnya">&gt;</button>
+
+            <div class="faq-list" id="faqList">
+
+                <button class="faq-item" data-question="Apa itu BMB (Berkah Meeting Bareng)?" data-answer="BMB (Berkah Meeting Bareng) adalah penyedia Virtual Office dan ruang kerja profesional di Bogor yang membantu bisnis mendapatkan alamat prestisius, layanan legalitas usaha, hingga ruang meeting yang nyaman dengan harga terjangkau.">
+                    <h3>Apa itu BMB (Berkah Meeting Bareng)?</h3>
+                    <div class="faq-item-foot">
+                        <span class="faq-item-tag">Tentang BMB</span>
+                        <span class="chevron"><i class="bi bi-arrow-up-right"></i></span>
+                    </div>
+                </button>
+
+                <button class="faq-item" data-question="Bagaimana jika ada surat atau paket yang datang?" data-answer="Semua surat dan paket yang datang atas nama perusahaan Anda akan kami terima, catat, dan informasikan melalui WhatsApp. Anda bisa mengambilnya langsung atau meminta kami meneruskannya ke alamat lain.">
+                    <h3>Bagaimana jika ada surat atau paket yang datang?</h3>
+                    <div class="faq-item-foot">
+                        <span class="faq-item-tag">Layanan</span>
+                        <span class="chevron"><i class="bi bi-arrow-up-right"></i></span>
+                    </div>
+                </button>
+
+                <button class="faq-item" data-question="Berapa lama waktu aktivasi akun Virtual Office?" data-answer="Proses aktivasi biasanya memakan waktu 1-2 hari kerja setelah dokumen dan pembayaran lengkap kami terima.">
+                    <h3>Berapa lama waktu aktivasi akun Virtual Office?</h3>
+                    <div class="faq-item-foot">
+                        <span class="faq-item-tag">Aktivasi</span>
+                        <span class="chevron"><i class="bi bi-arrow-up-right"></i></span>
+                    </div>
+                </button>
+
+            </div>
+
+            <div class="faq-dots" id="faqDots"></div>
+        </div>
+    </section>
+
+    <!-- MODAL JAWABAN FAQ -->
+    <div class="modal-overlay" id="answerOverlay">
+        <div class="answer-modal">
+            <button class="modal-close" id="closeAnswerBtn" aria-label="Tutup">&times;</button>
+            <div class="modal-eyebrow">PERTANYAAN</div>
+            <h3 id="answerQuestion"></h3>
+            <div class="modal-body" id="answerBody"></div>
+            <div class="faq-asker" id="answerAsker" style="display:none;"></div>
+        </div>
+    </div>
+
+    <!-- MODAL AJUKAN PERTANYAAN FAQ -->
+    <div class="modal-overlay" id="questionOverlay">
+        <div class="question-modal">
+            <button class="modal-close" id="closeQuestionBtn" aria-label="Tutup">&times;</button>
+            <h3>Ajukan Pertanyaan</h3>
+            <p class="hint">Pertanyaan Anda akan tampil di daftar FAQ dan segera dijawab oleh tim kami.</p>
+
+            <form id="questionForm">
+                <div class="field">
+                    <label>Nama</label>
+                    <input type="text" id="askerName" placeholder="Nama Anda" required>
+                </div>
+
+                <div class="field">
+                    <label>Pertanyaan</label>
+                    <textarea id="askerQuestion" rows="4" placeholder="Contoh: Apa itu BMB?" required></textarea>
+                </div>
+
+                <button type="submit" class="question-submit">Kirim Pertanyaan</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="review-modal-overlay" id="reviewOverlay">
+        <div class="review-modal">
+            <button class="review-close" id="closeReviewBtn" aria-label="Tutup">&times;</button>
+            <h3>Bagikan Pengalaman Anda</h3>
+            <p class="hint">Saran dan rating Anda membantu kami menjadi lebih baik.</p>
+
+            <form id="reviewForm">
+                <div class="field">
+                    <label>Nama</label>
+                    <input type="text" id="reviewName" placeholder="Nama Anda" required>
+                </div>
+
+                <div class="field">
+                    <label>Peran / Perusahaan (opsional)</label>
+                    <input type="text" id="reviewRole" placeholder="Contoh: Founder, ABC Studio">
+                </div>
+
+                <div class="field">
+                    <label>Rating</label>
+                    <div class="star-picker" id="starPicker">
+                        <i class="bi bi-star-fill" data-value="1"></i>
+                        <i class="bi bi-star-fill" data-value="2"></i>
+                        <i class="bi bi-star-fill" data-value="3"></i>
+                        <i class="bi bi-star-fill" data-value="4"></i>
+                        <i class="bi bi-star-fill" data-value="5"></i>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Saran / Ulasan</label>
+                    <textarea id="reviewText" rows="4" placeholder="Ceritakan pengalaman Anda di BMB Space..." required></textarea>
+                </div>
+
+                <button type="submit" class="review-submit">Kirim Ulasan</button>
+            </form>
+        </div>
+    </div>
+
+    <a href="https://wa.me/" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Hubungi kami via WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function toggleMenu(element) {
+            const currentItem = element.parentElement;
+            const allItems = document.querySelectorAll('.nav-item');
+
+            allItems.forEach(function(item) {
+                if (item !== currentItem) {
+                    item.classList.remove('active');
+                }
+            });
+
+            currentItem.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-item')
+                    .forEach(function(item) {
+                        item.classList.remove('active');
+                    });
+            }
+        });
+
+        const navbarToggle = document.getElementById('navbarToggle');
+        const navMenu = document.getElementById('navMenu');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function closeMobileMenu() {
+            navbarToggle.classList.remove('open');
+            navMenu.classList.remove('open');
+            navOverlay.classList.remove('show');
+
+            document.querySelectorAll('.nav-item')
+                .forEach(function(item) {
+                    item.classList.remove('active');
+                });
+        }
+
+        function openMobileMenu() {
+            navbarToggle.classList.add('open');
+            navMenu.classList.add('open');
+            navOverlay.classList.add('show');
+        }
+
+        navbarToggle.addEventListener('click', function(event) {
+            event.stopPropagation();
+
+            if (navMenu.classList.contains('open')) {
+                closeMobileMenu();
+            } else {
+                openMobileMenu();
+            }
+        });
+
+        navOverlay.addEventListener('click', closeMobileMenu);
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 992) {
+                closeMobileMenu();
+            }
+        });
+
+        const navbar = document.querySelector('.navbar');
+        const heroSection = document.querySelector('.hero');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            let heroHeight = heroSection.offsetHeight;
+
+            if (scrollTop < heroHeight) {
+                navbar.classList.remove('navbar-visible');
+                navbar.classList.remove('navbar-scrolled');
+                navbar.classList.remove('navbar-slim');
+            } else {
+                navbar.classList.add('navbar-visible');
+                navbar.classList.add('navbar-scrolled');
+                navbar.classList.add('navbar-slim');
+            }
+        });
+
+        const heroTitle = document.getElementById('hero-title');
+        const heroSubtitle = document.getElementById('hero-subtitle');
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        const heroBtn = document.querySelector('.hero-btn');
+
+        const TEXT_FADE_MS = 750;
+
+        const slides = [{
+            image: "no.6.jpeg",
+            subtitle: "A Professional Meeting Space in the Heart of Bogor",
+            title: "BMB SPACE"
+        }, {
+            image: "no.1.jpeg",
+            subtitle: "Comfortable Workspace",
+            title: "BMB MEETING SPACE"
+        }, {
+            image: "no.4.jpeg",
+            subtitle: "For Meetings & Events",
+            title: "EVENT VENUE"
+        }];
+
+        let currentSlide = 0;
+        let heroTimer = null;
+
+        heroSlides.forEach((slide, index) => {
+            slide.style.backgroundImage = `url('${slides[index].image}')`;
+        });
+
+        heroSubtitle.innerText = slides[0].subtitle;
+        heroTitle.innerText = slides[0].title;
+
+        setTimeout(() => {
+            heroSubtitle.classList.add('text-show');
+            heroTitle.classList.add('text-show');
+        }, 300);
+
+        function changeHero() {
+            const nextSlide = (currentSlide + 1) % slides.length;
+
+            heroSlides[currentSlide].classList.remove('active');
+            heroSlides[nextSlide].classList.add('active');
+
+            heroSubtitle.classList.remove('text-show');
+            heroTitle.classList.remove('text-show');
+
+            setTimeout(() => {
+                heroSubtitle.innerText = slides[nextSlide].subtitle;
+                heroTitle.innerText = slides[nextSlide].title;
+
+                void heroTitle.offsetWidth;
+
+                heroSubtitle.classList.add('text-show');
+                heroTitle.classList.add('text-show');
+            }, TEXT_FADE_MS);
+
+            currentSlide = nextSlide;
+        }
+
+        heroTimer = setInterval(changeHero, 7000);
+
+        /* ============================================================
+           LANGUAGE SWITCH (EN / ID) - Tentang & Mengapa Memilih
+        ============================================================= */
+        (function() {
+            const langSwitch = document.getElementById('langSwitch');
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const translatable = document.querySelectorAll('.why-about [data-id], .why-content [data-id], .facilities [data-id]');
+
+            function applyLang(lang) {
+                translatable.forEach(function(el) {
+                    const text = el.getAttribute('data-' + lang);
+                    if (text) {
+                        el.textContent = text;
+                    }
+                });
+
+                langButtons.forEach(function(btn) {
+                    const isActive = btn.getAttribute('data-lang') === lang;
+                    btn.classList.toggle('active', isActive);
+                    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                });
+
+                if (langSwitch) {
+                    langSwitch.classList.toggle('lang-en', lang === 'en');
+                }
+
+                try {
+                    localStorage.setItem('hotelSalakLang', lang);
+                } catch (e) {}
+            }
+
+            langButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    applyLang(btn.getAttribute('data-lang'));
+                });
+            });
+
+            let savedLang = 'id';
+            try {
+                savedLang = localStorage.getItem('hotelSalakLang') || 'id';
+            } catch (e) {}
+
+            applyLang(savedLang);
+        })();
+
+        /* ============================================================
+           PROMO SLIDER (BMB Space) — foto berganti, teks kiri tetap
+        ============================================================= */
+        (function() {
+            const photos = [
+                "promo-1.jpeg",
+                "promo-2.jpeg",
+                "promo-3.jpeg",
+                "promo-5.jpeg"
+            ];
+
+            let current = 0;
+            let showingA = true;
+
+            const imgA = document.getElementById("promoImageA");
+            const imgB = document.getElementById("promoImageB");
+            const indexLabel = document.getElementById("slideIndex");
+            const progressBar = document.getElementById("progressBar");
+
+            function pad(n) {
+                return n < 10 ? "0" + n : "" + n;
+            }
+
+            function updateIndex() {
+                indexLabel.textContent = pad(current + 1) + " / " + pad(photos.length);
+            }
+
+            function goTo(index) {
+                if (index >= photos.length) index = 0;
+                if (index < 0) index = photos.length - 1;
+                current = index;
+
+                const incoming = showingA ? imgB : imgA;
+                const outgoing = showingA ? imgA : imgB;
+
+                incoming.src = photos[current];
+                incoming.classList.remove("is-hidden");
+                outgoing.classList.add("is-hidden");
+                showingA = !showingA;
+
+                updateIndex();
+                restartProgress();
+            }
+
+            function next() {
+                goTo(current + 1);
+            }
+
+            function prev() {
+                goTo(current - 1);
+            }
+
+            function restartProgress() {
+                progressBar.classList.remove("animate");
+                void progressBar.offsetWidth;
+                progressBar.classList.add("animate");
+            }
+
+            let autoSlide = setInterval(next, 8000);
+
+            function resetAutoSlide() {
+                clearInterval(autoSlide);
+                autoSlide = setInterval(next, 8000);
+            }
+
+            document.getElementById("nextBtn").addEventListener("click", () => {
+                next();
+                resetAutoSlide();
+            });
+            document.getElementById("prevBtn").addEventListener("click", () => {
+                prev();
+                resetAutoSlide();
+            });
+
+            updateIndex();
+            restartProgress();
+        })();
+
+        /* ============================================================
+           GALERI KANTOR — carousel manual + otomatis
+        ============================================================= */
+        (function() {
+            const track = document.getElementById('galleryTrack');
+            const gallerySlides = Array.from(track.children);
+            const prevBtn = document.getElementById('galleryPrev');
+            const nextBtn = document.getElementById('galleryNext');
+            const indexLabel = document.getElementById('galleryIndex');
+            const progressBar = document.getElementById('galleryProgress');
+            const total = gallerySlides.length;
+
+            let current = 0;
+            let autoTimer = null;
+            const AUTO_MS = 6000;
+
+            function visibleCount() {
+                const w = window.innerWidth;
+                if (w <= 575.98) return 1;
+                if (w <= 991.98) return 2;
+                return 3;
+            }
+
+            function maxIndex() {
+                return Math.max(0, total - visibleCount());
+            }
+
+            function pad(n) {
+                return n < 10 ? '0' + n : '' + n;
+            }
+
+            function updateIndex() {
+                indexLabel.textContent = pad(current + 1) + ' / ' + pad(total);
+            }
+
+            function goTo(index) {
+                const max = maxIndex();
+                if (index > max) index = 0;
+                if (index < 0) index = max;
+                current = index;
+
+                const slideWidth = gallerySlides[0].getBoundingClientRect().width;
+                const gap = parseFloat(getComputedStyle(track).gap) || 0;
+                const offset = current * (slideWidth + gap);
+
+                track.style.transform = 'translateX(' + (-offset) + 'px)';
+                updateIndex();
+                restartProgress();
+            }
+
+            function next() {
+                goTo(current + 1);
+            }
+
+            function prev() {
+                goTo(current - 1);
+            }
+
+            function restartProgress() {
+                progressBar.classList.remove('animate');
+                void progressBar.offsetWidth;
+                progressBar.classList.add('animate');
+            }
+
+            function startAuto() {
+                clearInterval(autoTimer);
+                autoTimer = setInterval(next, AUTO_MS);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                prev();
+                startAuto();
+            });
+            nextBtn.addEventListener('click', () => {
+                next();
+                startAuto();
+            });
+
+            window.addEventListener('resize', () => goTo(current));
+
+            goTo(0);
+            startAuto();
+        })();
+
+        /* ============================================================
+           TESTIMONI — carousel + modal tambah ulasan
+        ============================================================= */
+        (function() {
+            const openBtn = document.getElementById('openReviewBtn');
+            const closeBtn = document.getElementById('closeReviewBtn');
+            const overlay = document.getElementById('reviewOverlay');
+            const form = document.getElementById('reviewForm');
+            const starPicker = document.getElementById('starPicker');
+            const stars = Array.from(starPicker.children);
+            const grid = document.getElementById('testiGrid');
+            const prevBtn = document.getElementById('testiPrevBtn');
+            const nextBtn = document.getElementById('testiNextBtn');
+
+            let selectedRating = 5;
+
+            function paintStars(value) {
+                stars.forEach((star) => {
+                    star.classList.toggle('on', Number(star.dataset.value) <= value);
+                });
+            }
+
+            stars.forEach((star) => {
+                star.addEventListener('click', () => {
+                    selectedRating = Number(star.dataset.value);
+                    paintStars(selectedRating);
+                });
+            });
+            paintStars(selectedRating);
+
+            function openModal() {
+                overlay.classList.add('open');
+            }
+
+            function closeModal() {
+                overlay.classList.remove('open');
+            }
+
+            openBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModal();
+            });
+
+            function cardScrollStep() {
+                const firstCard = grid.querySelector('.testi-card');
+                if (!firstCard) return 320;
+                const style = getComputedStyle(grid);
+                const gap = parseFloat(style.columnGap || style.gap || '30');
+                return firstCard.getBoundingClientRect().width + gap;
+            }
+
+            function updateNavButtons() {
+                const maxScroll = grid.scrollWidth - grid.clientWidth - 1;
+                prevBtn.disabled = grid.scrollLeft <= 0;
+                nextBtn.disabled = grid.scrollLeft >= maxScroll;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                grid.scrollBy({
+                    left: -cardScrollStep(),
+                    behavior: 'smooth'
+                });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                grid.scrollBy({
+                    left: cardScrollStep(),
+                    behavior: 'smooth'
+                });
+            });
+
+            grid.addEventListener('scroll', updateNavButtons);
+            window.addEventListener('resize', updateNavButtons);
+            updateNavButtons();
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('reviewName').value.trim();
+                const role = document.getElementById('reviewRole').value.trim() || 'Klien BMB Space';
+                const text = document.getElementById('reviewText').value.trim();
+
+                const card = document.createElement('div');
+                card.className = 'testi-card';
+                card.innerHTML = `
+                <div class="testi-quote"><i class="bi bi-quote"></i></div>
+                <div class="testi-avatar"><i class="bi bi-person-fill"></i></div>
+                <div class="testi-stars">${'★'.repeat(selectedRating)}${'☆'.repeat(5 - selectedRating)}</div>
+                <p class="testi-text">"${text}"</p>
+                <div class="testi-divider"></div>
+                <div class="testi-name">${name}</div>
+                <div class="testi-role">${role}</div>
+            `;
+
+                grid.appendChild(card);
+                grid.scrollTo({
+                    left: grid.scrollWidth,
+                    behavior: 'smooth'
+                });
+                updateNavButtons();
+
+                form.reset();
+                selectedRating = 5;
+                paintStars(selectedRating);
+                closeModal();
+            });
+        })();
+
+        /* ============================================================
+           ARTIKEL — carousel geser kartu artikel
+        ============================================================= */
+        (function() {
+            const artGrid = document.getElementById('articlesGrid');
+            const artPrevBtn = document.getElementById('artPrevBtn');
+            const artNextBtn = document.getElementById('artNextBtn');
+
+            function artCardScrollStep() {
+                const firstCard = artGrid.querySelector('.article-card');
+                if (!firstCard) return 320;
+                const style = getComputedStyle(artGrid);
+                const gap = parseFloat(style.columnGap || style.gap || '30');
+                return firstCard.getBoundingClientRect().width + gap;
+            }
+
+            function updateArtNavButtons() {
+                const maxScroll = artGrid.scrollWidth - artGrid.clientWidth - 1;
+                artPrevBtn.disabled = artGrid.scrollLeft <= 0;
+                artNextBtn.disabled = artGrid.scrollLeft >= maxScroll;
+            }
+
+            artPrevBtn.addEventListener('click', () => {
+                artGrid.scrollBy({
+                    left: -artCardScrollStep(),
+                    behavior: 'smooth'
+                });
+            });
+
+            artNextBtn.addEventListener('click', () => {
+                artGrid.scrollBy({
+                    left: artCardScrollStep(),
+                    behavior: 'smooth'
+                });
+            });
+
+            artGrid.addEventListener('scroll', updateArtNavButtons);
+            window.addEventListener('resize', updateArtNavButtons);
+            updateArtNavButtons();
+        })();
+
+        /* ============================================================
+           FAQ — card rail + modal jawaban + modal ajukan pertanyaan
+        ============================================================= */
+        (function() {
+            const faqList = document.getElementById('faqList');
+            const prevBtn = document.getElementById('faqPrevBtn');
+            const nextBtn = document.getElementById('faqNextBtn');
+            const faqDots = document.getElementById('faqDots');
+
+            // ---- modal jawaban ----
+            const answerOverlay = document.getElementById('answerOverlay');
+            const answerQuestion = document.getElementById('answerQuestion');
+            const answerBody = document.getElementById('answerBody');
+            const answerAsker = document.getElementById('answerAsker');
+            const closeAnswerBtn = document.getElementById('closeAnswerBtn');
+
+            function openAnswerModal(item) {
+                answerQuestion.textContent = item.dataset.question;
+
+                if (item.classList.contains('pending')) {
+                    answerBody.innerHTML = `<span class="faq-pending-badge"><i class="bi bi-hourglass-split"></i> Menunggu dijawab admin</span><div style="margin-top:14px;">Terima kasih, pertanyaan Anda sudah kami terima dan akan segera dijawab oleh tim BMB.</div>`;
+                    answerAsker.style.display = 'block';
+                    answerAsker.textContent = `Ditanyakan oleh ${item.dataset.asker}`;
+                } else {
+                    answerBody.textContent = item.dataset.answer;
+                    answerAsker.style.display = 'none';
+                }
+
+                answerOverlay.classList.add('open');
+            }
+
+            function closeAnswerModal() {
+                answerOverlay.classList.remove('open');
+            }
+
+            faqList.addEventListener('click', (e) => {
+                const item = e.target.closest('.faq-item');
+                if (!item) return;
+                openAnswerModal(item);
+            });
+
+            closeAnswerBtn.addEventListener('click', closeAnswerModal);
+            answerOverlay.addEventListener('click', (e) => {
+                if (e.target === answerOverlay) closeAnswerModal();
+            });
+
+            // ---- rail nav (kiri/kanan) ----
+            function cardStep() {
+                const card = faqList.querySelector('.faq-item');
+                if (!card) return 280;
+                const style = getComputedStyle(faqList);
+                const gap = parseFloat(style.columnGap || style.gap || 20);
+                return card.getBoundingClientRect().width + gap;
+            }
+
+            function updateNavState() {
+                const maxScroll = faqList.scrollWidth - faqList.clientWidth - 2;
+                prevBtn.disabled = faqList.scrollLeft <= 2;
+                nextBtn.disabled = faqList.scrollLeft >= maxScroll;
+                updateDots();
+            }
+
+            prevBtn.addEventListener('click', () => {
+                faqList.scrollBy({
+                    left: -cardStep(),
+                    behavior: 'smooth'
+                });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                faqList.scrollBy({
+                    left: cardStep(),
+                    behavior: 'smooth'
+                });
+            });
+
+            faqList.addEventListener('scroll', () => {
+                window.requestAnimationFrame(updateNavState);
+            });
+
+            // ---- dots ----
+            function rebuildDots() {
+                faqDots.innerHTML = '';
+                const items = faqList.querySelectorAll('.faq-item');
+                items.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'faq-dot';
+                    dot.addEventListener('click', () => {
+                        faqList.scrollTo({
+                            left: i * cardStep(),
+                            behavior: 'smooth'
+                        });
+                    });
+                    faqDots.appendChild(dot);
+                });
+                updateDots();
+            }
+
+            function updateDots() {
+                const dots = faqDots.querySelectorAll('.faq-dot');
+                if (!dots.length) return;
+                const idx = Math.round(faqList.scrollLeft / cardStep());
+                dots.forEach((d, i) => d.classList.toggle('active', i === Math.min(idx, dots.length - 1)));
+            }
+
+            window.addEventListener('resize', updateNavState);
+
+            // ---- modal ajukan pertanyaan ----
+            const openQuestionBtn = document.getElementById('openQuestionBtn');
+            const closeQuestionBtn = document.getElementById('closeQuestionBtn');
+            const questionOverlay = document.getElementById('questionOverlay');
+            const questionForm = document.getElementById('questionForm');
+
+            function openQuestionModal() {
+                questionOverlay.classList.add('open');
+            }
+
+            function closeQuestionModal() {
+                questionOverlay.classList.remove('open');
+            }
+
+            openQuestionBtn.addEventListener('click', openQuestionModal);
+            closeQuestionBtn.addEventListener('click', closeQuestionModal);
+            questionOverlay.addEventListener('click', (e) => {
+                if (e.target === questionOverlay) closeQuestionModal();
+            });
+
+            questionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('askerName').value.trim();
+                const question = document.getElementById('askerQuestion').value.trim();
+
+                const item = document.createElement('button');
+                item.className = 'faq-item pending';
+                item.dataset.question = question;
+                item.dataset.asker = name;
+                item.innerHTML = `
+                    <h3>${question}</h3>
+                    <div class="faq-item-foot">
+                        <span class="faq-pending-badge"><i class="bi bi-hourglass-split"></i> Menunggu</span>
+                        <span class="chevron"><i class="bi bi-arrow-up-right"></i></span>
+                    </div>
+                `;
+
+                faqList.appendChild(item);
+                rebuildDots();
+
+                questionForm.reset();
+                closeQuestionModal();
+
+                faqList.scrollTo({
+                    left: faqList.scrollWidth,
+                    behavior: 'smooth'
+                });
+                setTimeout(() => openAnswerModal(item), 400);
+            });
+
+            // ---- init ----
+            rebuildDots();
+            updateNavState();
+        })();
+    </script>
+
+</body>
+
+</html>
